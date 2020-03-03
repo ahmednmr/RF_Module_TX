@@ -1,0 +1,652 @@
+
+RF_Module_TX.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000512  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         000000b4  00800060  00000512  000005a6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000007  00800114  00800114  0000065a  2**0
+                  ALLOC
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	11 e0       	ldi	r17, 0x01	; 1
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e2 e1       	ldi	r30, 0x12	; 18
+  68:	f5 e0       	ldi	r31, 0x05	; 5
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a4 31       	cpi	r26, 0x14	; 20
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	11 e0       	ldi	r17, 0x01	; 1
+  78:	a4 e1       	ldi	r26, 0x14	; 20
+  7a:	b1 e0       	ldi	r27, 0x01	; 1
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	ab 31       	cpi	r26, 0x1B	; 27
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 c9 01 	call	0x392	; 0x392 <main>
+  8a:	0c 94 87 02 	jmp	0x50e	; 0x50e <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <init_UART>:
+  92:	82 e0       	ldi	r24, 0x02	; 2
+  94:	8b b9       	out	0x0b, r24	; 11
+  96:	88 e1       	ldi	r24, 0x18	; 24
+  98:	8a b9       	out	0x0a, r24	; 10
+  9a:	86 e8       	ldi	r24, 0x86	; 134
+  9c:	80 bd       	out	0x20, r24	; 32
+  9e:	88 e0       	ldi	r24, 0x08	; 8
+  a0:	89 b9       	out	0x09, r24	; 9
+  a2:	10 bc       	out	0x20, r1	; 32
+  a4:	08 95       	ret
+
+000000a6 <UART_SendChar>:
+  a6:	5d 9b       	sbis	0x0b, 5	; 11
+  a8:	fe cf       	rjmp	.-4      	; 0xa6 <UART_SendChar>
+  aa:	8c b9       	out	0x0c, r24	; 12
+  ac:	08 95       	ret
+
+000000ae <UART_getChar>:
+  ae:	5f 9b       	sbis	0x0b, 7	; 11
+  b0:	fe cf       	rjmp	.-4      	; 0xae <UART_getChar>
+  b2:	8c b1       	in	r24, 0x0c	; 12
+  b4:	08 95       	ret
+
+000000b6 <UART_SEND_string>:
+  b6:	fc 01       	movw	r30, r24
+  b8:	04 c0       	rjmp	.+8      	; 0xc2 <UART_SEND_string+0xc>
+  ba:	5d 9b       	sbis	0x0b, 5	; 11
+  bc:	fe cf       	rjmp	.-4      	; 0xba <UART_SEND_string+0x4>
+  be:	8c b9       	out	0x0c, r24	; 12
+  c0:	31 96       	adiw	r30, 0x01	; 1
+  c2:	80 81       	ld	r24, Z
+  c4:	88 23       	and	r24, r24
+  c6:	c9 f7       	brne	.-14     	; 0xba <UART_SEND_string+0x4>
+  c8:	08 95       	ret
+
+000000ca <UART_SEND_number>:
+  ca:	0f 93       	push	r16
+  cc:	1f 93       	push	r17
+  ce:	df 93       	push	r29
+  d0:	cf 93       	push	r28
+  d2:	cd b7       	in	r28, 0x3d	; 61
+  d4:	de b7       	in	r29, 0x3e	; 62
+  d6:	64 97       	sbiw	r28, 0x14	; 20
+  d8:	0f b6       	in	r0, 0x3f	; 63
+  da:	f8 94       	cli
+  dc:	de bf       	out	0x3e, r29	; 62
+  de:	0f be       	out	0x3f, r0	; 63
+  e0:	cd bf       	out	0x3d, r28	; 61
+  e2:	8e 01       	movw	r16, r28
+  e4:	0f 5f       	subi	r16, 0xFF	; 255
+  e6:	1f 4f       	sbci	r17, 0xFF	; 255
+  e8:	b8 01       	movw	r22, r16
+  ea:	4a e0       	ldi	r20, 0x0A	; 10
+  ec:	50 e0       	ldi	r21, 0x00	; 0
+  ee:	0e 94 42 02 	call	0x484	; 0x484 <itoa>
+  f2:	c8 01       	movw	r24, r16
+  f4:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+  f8:	64 96       	adiw	r28, 0x14	; 20
+  fa:	0f b6       	in	r0, 0x3f	; 63
+  fc:	f8 94       	cli
+  fe:	de bf       	out	0x3e, r29	; 62
+ 100:	0f be       	out	0x3f, r0	; 63
+ 102:	cd bf       	out	0x3d, r28	; 61
+ 104:	cf 91       	pop	r28
+ 106:	df 91       	pop	r29
+ 108:	1f 91       	pop	r17
+ 10a:	0f 91       	pop	r16
+ 10c:	08 95       	ret
+
+0000010e <SPI_MasterInit>:
+ 10e:	80 eb       	ldi	r24, 0xB0	; 176
+ 110:	87 bb       	out	0x17, r24	; 23
+ 112:	be 98       	cbi	0x17, 6	; 23
+ 114:	80 e5       	ldi	r24, 0x50	; 80
+ 116:	8d b9       	out	0x0d, r24	; 13
+ 118:	68 9a       	sbi	0x0d, 0	; 13
+ 11a:	c4 98       	cbi	0x18, 4	; 24
+ 11c:	08 95       	ret
+
+0000011e <SPI_Transmit>:
+ 11e:	8f b9       	out	0x0f, r24	; 15
+ 120:	77 9b       	sbis	0x0e, 7	; 14
+ 122:	fe cf       	rjmp	.-4      	; 0x120 <SPI_Transmit+0x2>
+ 124:	8f b1       	in	r24, 0x0f	; 15
+ 126:	08 95       	ret
+
+00000128 <SPI_SlaveInit>:
+ 128:	80 e4       	ldi	r24, 0x40	; 64
+ 12a:	87 bb       	out	0x17, r24	; 23
+ 12c:	8d b9       	out	0x0d, r24	; 13
+ 12e:	08 95       	ret
+
+00000130 <nrf24_csn_digitalWrite>:
+ 130:	88 23       	and	r24, r24
+ 132:	11 f0       	breq	.+4      	; 0x138 <nrf24_csn_digitalWrite+0x8>
+ 134:	c4 9a       	sbi	0x18, 4	; 24
+ 136:	08 95       	ret
+ 138:	c4 98       	cbi	0x18, 4	; 24
+ 13a:	08 95       	ret
+
+0000013c <nrf24_ce_digitalWrite>:
+ 13c:	88 23       	and	r24, r24
+ 13e:	11 f0       	breq	.+4      	; 0x144 <nrf24_ce_digitalWrite+0x8>
+ 140:	c3 9a       	sbi	0x18, 3	; 24
+ 142:	08 95       	ret
+ 144:	c3 98       	cbi	0x18, 3	; 24
+ 146:	08 95       	ret
+
+00000148 <nrf24_getStatus>:
+ 148:	c4 98       	cbi	0x18, 4	; 24
+ 14a:	8f ef       	ldi	r24, 0xFF	; 255
+ 14c:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 150:	c4 9a       	sbi	0x18, 4	; 24
+ 152:	08 95       	ret
+
+00000154 <nrf24_lastMessageStatus>:
+ 154:	0e 94 a4 00 	call	0x148	; 0x148 <nrf24_getStatus>
+ 158:	85 ff       	sbrs	r24, 5
+ 15a:	02 c0       	rjmp	.+4      	; 0x160 <nrf24_lastMessageStatus+0xc>
+ 15c:	80 e0       	ldi	r24, 0x00	; 0
+ 15e:	08 95       	ret
+ 160:	84 fd       	sbrc	r24, 4
+ 162:	02 c0       	rjmp	.+4      	; 0x168 <nrf24_lastMessageStatus+0x14>
+ 164:	8f ef       	ldi	r24, 0xFF	; 255
+ 166:	08 95       	ret
+ 168:	81 e0       	ldi	r24, 0x01	; 1
+ 16a:	08 95       	ret
+
+0000016c <nrf24_isSending>:
+ 16c:	0e 94 a4 00 	call	0x148	; 0x148 <nrf24_getStatus>
+ 170:	90 e0       	ldi	r25, 0x00	; 0
+ 172:	80 73       	andi	r24, 0x30	; 48
+ 174:	09 f4       	brne	.+2      	; 0x178 <nrf24_isSending+0xc>
+ 176:	91 e0       	ldi	r25, 0x01	; 1
+ 178:	89 2f       	mov	r24, r25
+ 17a:	08 95       	ret
+
+0000017c <nrf24_transferSync>:
+ 17c:	df 92       	push	r13
+ 17e:	ef 92       	push	r14
+ 180:	ff 92       	push	r15
+ 182:	0f 93       	push	r16
+ 184:	1f 93       	push	r17
+ 186:	cf 93       	push	r28
+ 188:	df 93       	push	r29
+ 18a:	7b 01       	movw	r14, r22
+ 18c:	d4 2e       	mov	r13, r20
+ 18e:	8c 01       	movw	r16, r24
+ 190:	c0 e0       	ldi	r28, 0x00	; 0
+ 192:	d0 e0       	ldi	r29, 0x00	; 0
+ 194:	0a c0       	rjmp	.+20     	; 0x1aa <nrf24_transferSync+0x2e>
+ 196:	f8 01       	movw	r30, r16
+ 198:	81 91       	ld	r24, Z+
+ 19a:	8f 01       	movw	r16, r30
+ 19c:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 1a0:	f7 01       	movw	r30, r14
+ 1a2:	ec 0f       	add	r30, r28
+ 1a4:	fd 1f       	adc	r31, r29
+ 1a6:	80 83       	st	Z, r24
+ 1a8:	21 96       	adiw	r28, 0x01	; 1
+ 1aa:	cd 15       	cp	r28, r13
+ 1ac:	a0 f3       	brcs	.-24     	; 0x196 <nrf24_transferSync+0x1a>
+ 1ae:	df 91       	pop	r29
+ 1b0:	cf 91       	pop	r28
+ 1b2:	1f 91       	pop	r17
+ 1b4:	0f 91       	pop	r16
+ 1b6:	ff 90       	pop	r15
+ 1b8:	ef 90       	pop	r14
+ 1ba:	df 90       	pop	r13
+ 1bc:	08 95       	ret
+
+000001be <nrf24_readRegister>:
+ 1be:	ff 92       	push	r15
+ 1c0:	0f 93       	push	r16
+ 1c2:	1f 93       	push	r17
+ 1c4:	8b 01       	movw	r16, r22
+ 1c6:	f4 2e       	mov	r15, r20
+ 1c8:	c4 98       	cbi	0x18, 4	; 24
+ 1ca:	8f 71       	andi	r24, 0x1F	; 31
+ 1cc:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 1d0:	c8 01       	movw	r24, r16
+ 1d2:	b8 01       	movw	r22, r16
+ 1d4:	4f 2d       	mov	r20, r15
+ 1d6:	0e 94 be 00 	call	0x17c	; 0x17c <nrf24_transferSync>
+ 1da:	c4 9a       	sbi	0x18, 4	; 24
+ 1dc:	1f 91       	pop	r17
+ 1de:	0f 91       	pop	r16
+ 1e0:	ff 90       	pop	r15
+ 1e2:	08 95       	ret
+
+000001e4 <nrf24_retransmissionCount>:
+ 1e4:	df 93       	push	r29
+ 1e6:	cf 93       	push	r28
+ 1e8:	0f 92       	push	r0
+ 1ea:	cd b7       	in	r28, 0x3d	; 61
+ 1ec:	de b7       	in	r29, 0x3e	; 62
+ 1ee:	88 e0       	ldi	r24, 0x08	; 8
+ 1f0:	be 01       	movw	r22, r28
+ 1f2:	6f 5f       	subi	r22, 0xFF	; 255
+ 1f4:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1f6:	41 e0       	ldi	r20, 0x01	; 1
+ 1f8:	0e 94 df 00 	call	0x1be	; 0x1be <nrf24_readRegister>
+ 1fc:	89 81       	ldd	r24, Y+1	; 0x01
+ 1fe:	8f 70       	andi	r24, 0x0F	; 15
+ 200:	0f 90       	pop	r0
+ 202:	cf 91       	pop	r28
+ 204:	df 91       	pop	r29
+ 206:	08 95       	ret
+
+00000208 <nrf24_transmitSync>:
+ 208:	0f 93       	push	r16
+ 20a:	1f 93       	push	r17
+ 20c:	cf 93       	push	r28
+ 20e:	df 93       	push	r29
+ 210:	06 2f       	mov	r16, r22
+ 212:	ec 01       	movw	r28, r24
+ 214:	10 e0       	ldi	r17, 0x00	; 0
+ 216:	04 c0       	rjmp	.+8      	; 0x220 <nrf24_transmitSync+0x18>
+ 218:	89 91       	ld	r24, Y+
+ 21a:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 21e:	1f 5f       	subi	r17, 0xFF	; 255
+ 220:	10 17       	cp	r17, r16
+ 222:	d0 f3       	brcs	.-12     	; 0x218 <nrf24_transmitSync+0x10>
+ 224:	df 91       	pop	r29
+ 226:	cf 91       	pop	r28
+ 228:	1f 91       	pop	r17
+ 22a:	0f 91       	pop	r16
+ 22c:	08 95       	ret
+
+0000022e <nrf24_writeRegister>:
+ 22e:	ff 92       	push	r15
+ 230:	0f 93       	push	r16
+ 232:	1f 93       	push	r17
+ 234:	8b 01       	movw	r16, r22
+ 236:	f4 2e       	mov	r15, r20
+ 238:	c4 98       	cbi	0x18, 4	; 24
+ 23a:	8f 71       	andi	r24, 0x1F	; 31
+ 23c:	80 62       	ori	r24, 0x20	; 32
+ 23e:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 242:	c8 01       	movw	r24, r16
+ 244:	6f 2d       	mov	r22, r15
+ 246:	0e 94 04 01 	call	0x208	; 0x208 <nrf24_transmitSync>
+ 24a:	c4 9a       	sbi	0x18, 4	; 24
+ 24c:	1f 91       	pop	r17
+ 24e:	0f 91       	pop	r16
+ 250:	ff 90       	pop	r15
+ 252:	08 95       	ret
+
+00000254 <nrf24_rx_address>:
+ 254:	bc 01       	movw	r22, r24
+ 256:	c3 98       	cbi	0x18, 3	; 24
+ 258:	8b e0       	ldi	r24, 0x0B	; 11
+ 25a:	45 e0       	ldi	r20, 0x05	; 5
+ 25c:	0e 94 17 01 	call	0x22e	; 0x22e <nrf24_writeRegister>
+ 260:	c3 9a       	sbi	0x18, 3	; 24
+ 262:	08 95       	ret
+
+00000264 <nrf24_tx_address>:
+ 264:	0f 93       	push	r16
+ 266:	1f 93       	push	r17
+ 268:	8c 01       	movw	r16, r24
+ 26a:	8a e0       	ldi	r24, 0x0A	; 10
+ 26c:	b8 01       	movw	r22, r16
+ 26e:	45 e0       	ldi	r20, 0x05	; 5
+ 270:	0e 94 17 01 	call	0x22e	; 0x22e <nrf24_writeRegister>
+ 274:	80 e1       	ldi	r24, 0x10	; 16
+ 276:	b8 01       	movw	r22, r16
+ 278:	45 e0       	ldi	r20, 0x05	; 5
+ 27a:	0e 94 17 01 	call	0x22e	; 0x22e <nrf24_writeRegister>
+ 27e:	1f 91       	pop	r17
+ 280:	0f 91       	pop	r16
+ 282:	08 95       	ret
+
+00000284 <nrf24_configRegister>:
+ 284:	1f 93       	push	r17
+ 286:	16 2f       	mov	r17, r22
+ 288:	c4 98       	cbi	0x18, 4	; 24
+ 28a:	8f 71       	andi	r24, 0x1F	; 31
+ 28c:	80 62       	ori	r24, 0x20	; 32
+ 28e:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 292:	81 2f       	mov	r24, r17
+ 294:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 298:	c4 9a       	sbi	0x18, 4	; 24
+ 29a:	1f 91       	pop	r17
+ 29c:	08 95       	ret
+
+0000029e <nrf24_powerDown>:
+ 29e:	c3 98       	cbi	0x18, 3	; 24
+ 2a0:	80 e0       	ldi	r24, 0x00	; 0
+ 2a2:	68 e0       	ldi	r22, 0x08	; 8
+ 2a4:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 2a8:	08 95       	ret
+
+000002aa <nrf24_powerUpTx>:
+ 2aa:	87 e0       	ldi	r24, 0x07	; 7
+ 2ac:	60 e7       	ldi	r22, 0x70	; 112
+ 2ae:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 2b2:	80 e0       	ldi	r24, 0x00	; 0
+ 2b4:	6a e0       	ldi	r22, 0x0A	; 10
+ 2b6:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 2ba:	08 95       	ret
+
+000002bc <nrf24_send>:
+ 2bc:	0f 93       	push	r16
+ 2be:	1f 93       	push	r17
+ 2c0:	8c 01       	movw	r16, r24
+ 2c2:	c3 98       	cbi	0x18, 3	; 24
+ 2c4:	0e 94 55 01 	call	0x2aa	; 0x2aa <nrf24_powerUpTx>
+ 2c8:	c4 98       	cbi	0x18, 4	; 24
+ 2ca:	81 ee       	ldi	r24, 0xE1	; 225
+ 2cc:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 2d0:	c4 9a       	sbi	0x18, 4	; 24
+ 2d2:	c4 98       	cbi	0x18, 4	; 24
+ 2d4:	80 ea       	ldi	r24, 0xA0	; 160
+ 2d6:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 2da:	c8 01       	movw	r24, r16
+ 2dc:	60 91 15 01 	lds	r22, 0x0115
+ 2e0:	0e 94 04 01 	call	0x208	; 0x208 <nrf24_transmitSync>
+ 2e4:	c4 9a       	sbi	0x18, 4	; 24
+ 2e6:	c3 9a       	sbi	0x18, 3	; 24
+ 2e8:	1f 91       	pop	r17
+ 2ea:	0f 91       	pop	r16
+ 2ec:	08 95       	ret
+
+000002ee <nrf24_powerUpRx>:
+ 2ee:	c4 98       	cbi	0x18, 4	; 24
+ 2f0:	82 ee       	ldi	r24, 0xE2	; 226
+ 2f2:	0e 94 8f 00 	call	0x11e	; 0x11e <SPI_Transmit>
+ 2f6:	c4 9a       	sbi	0x18, 4	; 24
+ 2f8:	87 e0       	ldi	r24, 0x07	; 7
+ 2fa:	60 e7       	ldi	r22, 0x70	; 112
+ 2fc:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 300:	c3 98       	cbi	0x18, 3	; 24
+ 302:	80 e0       	ldi	r24, 0x00	; 0
+ 304:	6b e0       	ldi	r22, 0x0B	; 11
+ 306:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 30a:	c3 9a       	sbi	0x18, 3	; 24
+ 30c:	08 95       	ret
+
+0000030e <nrf24_config>:
+ 30e:	98 2f       	mov	r25, r24
+ 310:	60 93 15 01 	sts	0x0115, r22
+ 314:	85 e0       	ldi	r24, 0x05	; 5
+ 316:	69 2f       	mov	r22, r25
+ 318:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 31c:	81 e1       	ldi	r24, 0x11	; 17
+ 31e:	60 e0       	ldi	r22, 0x00	; 0
+ 320:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 324:	82 e1       	ldi	r24, 0x12	; 18
+ 326:	60 91 15 01 	lds	r22, 0x0115
+ 32a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 32e:	83 e1       	ldi	r24, 0x13	; 19
+ 330:	60 e0       	ldi	r22, 0x00	; 0
+ 332:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 336:	84 e1       	ldi	r24, 0x14	; 20
+ 338:	60 e0       	ldi	r22, 0x00	; 0
+ 33a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 33e:	85 e1       	ldi	r24, 0x15	; 21
+ 340:	60 e0       	ldi	r22, 0x00	; 0
+ 342:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 346:	86 e1       	ldi	r24, 0x16	; 22
+ 348:	60 e0       	ldi	r22, 0x00	; 0
+ 34a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 34e:	86 e0       	ldi	r24, 0x06	; 6
+ 350:	66 e0       	ldi	r22, 0x06	; 6
+ 352:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 356:	80 e0       	ldi	r24, 0x00	; 0
+ 358:	68 e0       	ldi	r22, 0x08	; 8
+ 35a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 35e:	81 e0       	ldi	r24, 0x01	; 1
+ 360:	63 e0       	ldi	r22, 0x03	; 3
+ 362:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 366:	82 e0       	ldi	r24, 0x02	; 2
+ 368:	63 e0       	ldi	r22, 0x03	; 3
+ 36a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 36e:	84 e0       	ldi	r24, 0x04	; 4
+ 370:	6f e4       	ldi	r22, 0x4F	; 79
+ 372:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 376:	8c e1       	ldi	r24, 0x1C	; 28
+ 378:	60 e0       	ldi	r22, 0x00	; 0
+ 37a:	0e 94 42 01 	call	0x284	; 0x284 <nrf24_configRegister>
+ 37e:	0e 94 77 01 	call	0x2ee	; 0x2ee <nrf24_powerUpRx>
+ 382:	08 95       	ret
+
+00000384 <init_nrf24>:
+ 384:	0e 94 87 00 	call	0x10e	; 0x10e <SPI_MasterInit>
+ 388:	bb 9a       	sbi	0x17, 3	; 23
+ 38a:	bc 9a       	sbi	0x17, 4	; 23
+ 38c:	c3 98       	cbi	0x18, 3	; 24
+ 38e:	c4 9a       	sbi	0x18, 4	; 24
+ 390:	08 95       	ret
+
+00000392 <main>:
+ 392:	ef 92       	push	r14
+ 394:	ff 92       	push	r15
+ 396:	0f 93       	push	r16
+ 398:	1f 93       	push	r17
+ 39a:	cf 93       	push	r28
+ 39c:	df 93       	push	r29
+ 39e:	0e 94 49 00 	call	0x92	; 0x92 <init_UART>
+ 3a2:	88 ee       	ldi	r24, 0xE8	; 232
+ 3a4:	93 e0       	ldi	r25, 0x03	; 3
+ 3a6:	28 ec       	ldi	r18, 0xC8	; 200
+ 3a8:	30 e0       	ldi	r19, 0x00	; 0
+ 3aa:	f9 01       	movw	r30, r18
+ 3ac:	31 97       	sbiw	r30, 0x01	; 1
+ 3ae:	f1 f7       	brne	.-4      	; 0x3ac <main+0x1a>
+ 3b0:	01 97       	sbiw	r24, 0x01	; 1
+ 3b2:	d9 f7       	brne	.-10     	; 0x3aa <main+0x18>
+ 3b4:	80 e6       	ldi	r24, 0x60	; 96
+ 3b6:	90 e0       	ldi	r25, 0x00	; 0
+ 3b8:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 3bc:	0e 94 c2 01 	call	0x384	; 0x384 <init_nrf24>
+ 3c0:	82 e0       	ldi	r24, 0x02	; 2
+ 3c2:	64 e0       	ldi	r22, 0x04	; 4
+ 3c4:	0e 94 87 01 	call	0x30e	; 0x30e <nrf24_config>
+ 3c8:	89 e0       	ldi	r24, 0x09	; 9
+ 3ca:	91 e0       	ldi	r25, 0x01	; 1
+ 3cc:	0e 94 32 01 	call	0x264	; 0x264 <nrf24_tx_address>
+ 3d0:	8e e0       	ldi	r24, 0x0E	; 14
+ 3d2:	91 e0       	ldi	r25, 0x01	; 1
+ 3d4:	0e 94 2a 01 	call	0x254	; 0x254 <nrf24_rx_address>
+ 3d8:	8e e6       	ldi	r24, 0x6E	; 110
+ 3da:	90 e0       	ldi	r25, 0x00	; 0
+ 3dc:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 3e0:	9e e6       	ldi	r25, 0x6E	; 110
+ 3e2:	e9 2e       	mov	r14, r25
+ 3e4:	8d e6       	ldi	r24, 0x6D	; 109
+ 3e6:	f8 2e       	mov	r15, r24
+ 3e8:	02 e7       	ldi	r16, 0x72	; 114
+ 3ea:	11 e3       	ldi	r17, 0x31	; 49
+ 3ec:	c8 ec       	ldi	r28, 0xC8	; 200
+ 3ee:	d0 e0       	ldi	r29, 0x00	; 0
+ 3f0:	e0 92 17 01 	sts	0x0117, r14
+ 3f4:	f0 92 18 01 	sts	0x0118, r15
+ 3f8:	00 93 19 01 	sts	0x0119, r16
+ 3fc:	10 93 1a 01 	sts	0x011A, r17
+ 400:	8b e7       	ldi	r24, 0x7B	; 123
+ 402:	90 e0       	ldi	r25, 0x00	; 0
+ 404:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 408:	87 e1       	ldi	r24, 0x17	; 23
+ 40a:	91 e0       	ldi	r25, 0x01	; 1
+ 40c:	0e 94 5e 01 	call	0x2bc	; 0x2bc <nrf24_send>
+ 410:	8c e8       	ldi	r24, 0x8C	; 140
+ 412:	90 e0       	ldi	r25, 0x00	; 0
+ 414:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 418:	0e 94 b6 00 	call	0x16c	; 0x16c <nrf24_isSending>
+ 41c:	88 23       	and	r24, r24
+ 41e:	e1 f7       	brne	.-8      	; 0x418 <main+0x86>
+ 420:	82 ea       	ldi	r24, 0xA2	; 162
+ 422:	90 e0       	ldi	r25, 0x00	; 0
+ 424:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 428:	0e 94 aa 00 	call	0x154	; 0x154 <nrf24_lastMessageStatus>
+ 42c:	80 93 16 01 	sts	0x0116, r24
+ 430:	88 23       	and	r24, r24
+ 432:	19 f4       	brne	.+6      	; 0x43a <main+0xa8>
+ 434:	8f eb       	ldi	r24, 0xBF	; 191
+ 436:	90 e0       	ldi	r25, 0x00	; 0
+ 438:	04 c0       	rjmp	.+8      	; 0x442 <main+0xb0>
+ 43a:	81 30       	cpi	r24, 0x01	; 1
+ 43c:	21 f4       	brne	.+8      	; 0x446 <main+0xb4>
+ 43e:	85 ed       	ldi	r24, 0xD5	; 213
+ 440:	90 e0       	ldi	r25, 0x00	; 0
+ 442:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 446:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <nrf24_retransmissionCount>
+ 44a:	80 93 16 01 	sts	0x0116, r24
+ 44e:	8b ee       	ldi	r24, 0xEB	; 235
+ 450:	90 e0       	ldi	r25, 0x00	; 0
+ 452:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 456:	80 91 16 01 	lds	r24, 0x0116
+ 45a:	90 e0       	ldi	r25, 0x00	; 0
+ 45c:	0e 94 65 00 	call	0xca	; 0xca <UART_SEND_number>
+ 460:	80 e0       	ldi	r24, 0x00	; 0
+ 462:	91 e0       	ldi	r25, 0x01	; 1
+ 464:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 468:	0e 94 77 01 	call	0x2ee	; 0x2ee <nrf24_powerUpRx>
+ 46c:	80 e2       	ldi	r24, 0x20	; 32
+ 46e:	9e e4       	ldi	r25, 0x4E	; 78
+ 470:	fe 01       	movw	r30, r28
+ 472:	31 97       	sbiw	r30, 0x01	; 1
+ 474:	f1 f7       	brne	.-4      	; 0x472 <main+0xe0>
+ 476:	01 97       	sbiw	r24, 0x01	; 1
+ 478:	d9 f7       	brne	.-10     	; 0x470 <main+0xde>
+ 47a:	83 e0       	ldi	r24, 0x03	; 3
+ 47c:	91 e0       	ldi	r25, 0x01	; 1
+ 47e:	0e 94 5b 00 	call	0xb6	; 0xb6 <UART_SEND_string>
+ 482:	b6 cf       	rjmp	.-148    	; 0x3f0 <main+0x5e>
+
+00000484 <itoa>:
+ 484:	fb 01       	movw	r30, r22
+ 486:	9f 01       	movw	r18, r30
+ 488:	e8 94       	clt
+ 48a:	42 30       	cpi	r20, 0x02	; 2
+ 48c:	c4 f0       	brlt	.+48     	; 0x4be <itoa+0x3a>
+ 48e:	45 32       	cpi	r20, 0x25	; 37
+ 490:	b4 f4       	brge	.+44     	; 0x4be <itoa+0x3a>
+ 492:	4a 30       	cpi	r20, 0x0A	; 10
+ 494:	29 f4       	brne	.+10     	; 0x4a0 <itoa+0x1c>
+ 496:	97 fb       	bst	r25, 7
+ 498:	1e f4       	brtc	.+6      	; 0x4a0 <itoa+0x1c>
+ 49a:	90 95       	com	r25
+ 49c:	81 95       	neg	r24
+ 49e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 4a0:	64 2f       	mov	r22, r20
+ 4a2:	77 27       	eor	r23, r23
+ 4a4:	0e 94 73 02 	call	0x4e6	; 0x4e6 <__udivmodhi4>
+ 4a8:	80 5d       	subi	r24, 0xD0	; 208
+ 4aa:	8a 33       	cpi	r24, 0x3A	; 58
+ 4ac:	0c f0       	brlt	.+2      	; 0x4b0 <itoa+0x2c>
+ 4ae:	89 5d       	subi	r24, 0xD9	; 217
+ 4b0:	81 93       	st	Z+, r24
+ 4b2:	cb 01       	movw	r24, r22
+ 4b4:	00 97       	sbiw	r24, 0x00	; 0
+ 4b6:	a1 f7       	brne	.-24     	; 0x4a0 <itoa+0x1c>
+ 4b8:	16 f4       	brtc	.+4      	; 0x4be <itoa+0x3a>
+ 4ba:	5d e2       	ldi	r21, 0x2D	; 45
+ 4bc:	51 93       	st	Z+, r21
+ 4be:	10 82       	st	Z, r1
+ 4c0:	c9 01       	movw	r24, r18
+ 4c2:	0c 94 63 02 	jmp	0x4c6	; 0x4c6 <strrev>
+
+000004c6 <strrev>:
+ 4c6:	dc 01       	movw	r26, r24
+ 4c8:	fc 01       	movw	r30, r24
+ 4ca:	67 2f       	mov	r22, r23
+ 4cc:	71 91       	ld	r23, Z+
+ 4ce:	77 23       	and	r23, r23
+ 4d0:	e1 f7       	brne	.-8      	; 0x4ca <strrev+0x4>
+ 4d2:	32 97       	sbiw	r30, 0x02	; 2
+ 4d4:	04 c0       	rjmp	.+8      	; 0x4de <strrev+0x18>
+ 4d6:	7c 91       	ld	r23, X
+ 4d8:	6d 93       	st	X+, r22
+ 4da:	70 83       	st	Z, r23
+ 4dc:	62 91       	ld	r22, -Z
+ 4de:	ae 17       	cp	r26, r30
+ 4e0:	bf 07       	cpc	r27, r31
+ 4e2:	c8 f3       	brcs	.-14     	; 0x4d6 <strrev+0x10>
+ 4e4:	08 95       	ret
+
+000004e6 <__udivmodhi4>:
+ 4e6:	aa 1b       	sub	r26, r26
+ 4e8:	bb 1b       	sub	r27, r27
+ 4ea:	51 e1       	ldi	r21, 0x11	; 17
+ 4ec:	07 c0       	rjmp	.+14     	; 0x4fc <__udivmodhi4_ep>
+
+000004ee <__udivmodhi4_loop>:
+ 4ee:	aa 1f       	adc	r26, r26
+ 4f0:	bb 1f       	adc	r27, r27
+ 4f2:	a6 17       	cp	r26, r22
+ 4f4:	b7 07       	cpc	r27, r23
+ 4f6:	10 f0       	brcs	.+4      	; 0x4fc <__udivmodhi4_ep>
+ 4f8:	a6 1b       	sub	r26, r22
+ 4fa:	b7 0b       	sbc	r27, r23
+
+000004fc <__udivmodhi4_ep>:
+ 4fc:	88 1f       	adc	r24, r24
+ 4fe:	99 1f       	adc	r25, r25
+ 500:	5a 95       	dec	r21
+ 502:	a9 f7       	brne	.-22     	; 0x4ee <__udivmodhi4_loop>
+ 504:	80 95       	com	r24
+ 506:	90 95       	com	r25
+ 508:	bc 01       	movw	r22, r24
+ 50a:	cd 01       	movw	r24, r26
+ 50c:	08 95       	ret
+
+0000050e <_exit>:
+ 50e:	f8 94       	cli
+
+00000510 <__stop_program>:
+ 510:	ff cf       	rjmp	.-2      	; 0x510 <__stop_program>

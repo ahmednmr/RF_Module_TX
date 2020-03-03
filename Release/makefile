@@ -32,56 +32,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-RF_Module.lss \
+RF_Module_TX.lss \
 
 FLASH_IMAGE += \
-RF_Module.hex \
+RF_Module_TX.hex \
 
 EEPROM_IMAGE += \
-RF_Module.eep \
+RF_Module_TX.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: RF_Module.elf secondary-outputs
+all: RF_Module_TX.elf secondary-outputs
 
 # Tool invocations
-RF_Module.elf: $(OBJS) $(USER_OBJS)
+RF_Module_TX.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,RF_Module.map -mmcu=atmega32 -o "RF_Module.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,RF_Module_TX.map -mmcu=atmega32 -o "RF_Module_TX.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-RF_Module.lss: RF_Module.elf
+RF_Module_TX.lss: RF_Module_TX.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S RF_Module.elf  >"RF_Module.lss"
+	-avr-objdump -h -S RF_Module_TX.elf  >"RF_Module_TX.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-RF_Module.hex: RF_Module.elf
+RF_Module_TX.hex: RF_Module_TX.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex RF_Module.elf  "RF_Module.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex RF_Module_TX.elf  "RF_Module_TX.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-RF_Module.eep: RF_Module.elf
+RF_Module_TX.eep: RF_Module_TX.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex RF_Module.elf  "RF_Module.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex RF_Module_TX.elf  "RF_Module_TX.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: RF_Module.elf
+sizedummy: RF_Module_TX.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 RF_Module.elf
+	-avr-size --format=avr --mcu=atmega32 RF_Module_TX.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(ASM_DEPS)$(EEPROM_IMAGE)$(FLASH_IMAGE)$(ELFS)$(LSS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS) RF_Module.elf
+	-$(RM) $(OBJS)$(C_DEPS)$(ASM_DEPS)$(EEPROM_IMAGE)$(FLASH_IMAGE)$(ELFS)$(LSS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS) RF_Module_TX.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)

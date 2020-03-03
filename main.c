@@ -42,10 +42,10 @@ int main()
 	{
 
 		/* Fill the data buffer */
-		data_array[0] = 'N';
-		data_array[1] = 'M';
-		data_array[2] =  'R';
-		data_array[3] = '_';
+		data_array[0] = 'n';
+		data_array[1] = 'm';
+		data_array[2] =  'r';
+		data_array[3] = '1';
 
 		UART_SEND_string("send the array\r\n");
 		/* Automatically goes to TX mode */

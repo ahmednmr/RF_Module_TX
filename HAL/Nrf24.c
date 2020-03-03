@@ -16,12 +16,12 @@
 	void init_nrf24(void)
 	{
 	SPI_MasterInit();
-	DDRD |=(1<<PD3);//PD3 to CE
+	DDRB |=(1<<PB3);//PD3 to CE
 
 	DDRB |=(1<<PB4);  // PB4 to CSN
 
 
-	PORTD &=~(1<<PD3);     //CE
+	PORTB &=~(1<<PB3);     //CE
 	nrf24_csn_digitalWrite(HIGH);
 	}
 
@@ -106,11 +106,11 @@ void nrf24_ce_digitalWrite(char state)
 {
 	if(state)
 	{
-		PORTD |=(1<<PD3);
+		PORTB |=(1<<PB3);
 	}
 	else
 	{
-		PORTD &=~(1<<PD3);
+		PORTB &=~(1<<PB3);
 	}
 }
 

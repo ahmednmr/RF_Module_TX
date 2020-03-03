@@ -16,12 +16,12 @@ void init_UART(void)
 	unsigned int Value_of_UBBR = 0;
 
 
-
-		UCSRB = (1 << RXEN) | (1 << TXEN);
-       UCSRC = (1 << URSEL) | (3 << UCSZ0);
-       Value_of_UBBR = FOSC/16/BAUD-1;
-				UBRRL = (unsigned int)Value_of_UBBR;
-				UBRRH = (unsigned int)(Value_of_UBBR>>8);
+	UCSRA=(1<<U2X);
+	UCSRB = (1 << RXEN) | (1 << TXEN);
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+	Value_of_UBBR = FOSC/16/BAUD-1;
+	UBRRL = 8; //(unsigned int)Value_of_UBBR;
+	UBRRH = 0 ;//(unsigned int)(Value_of_UBBR>>8);
 }
 
 
@@ -44,12 +44,12 @@ char UART_getChar(void)
 void UART_SEND_string(char *array)
 {
 	int i=0;
-    while(array[i]!='\0')
-    {
+	while(array[i]!='\0')
+	{
 
-    	UART_SendChar(array[i]);
-    	i++;
-    }
+		UART_SendChar(array[i]);
+		i++;
+	}
 
 }
 
@@ -57,10 +57,10 @@ void UART_SEND_string(char *array)
 
 void UART_SEND_number(int number)
 {
-   char buffer[20];
+	char buffer[20];
 
-   itoa(number,buffer,10);
-   UART_SEND_string(buffer);
+	itoa(number,buffer,10);
+	UART_SEND_string(buffer);
 
 
 }
